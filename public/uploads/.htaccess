@@ -1,0 +1,5 @@
+# Uploads are images only. Nothing in this folder may ever run as code.
+<FilesMatch "\.(php|phtml|phar|pl|py|cgi|sh)$">
+    Require all denied
+</FilesMatch>
+Options -Indexes

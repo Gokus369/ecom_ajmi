@@ -1,0 +1,631 @@
+/* The source for public/assets/css/app.css. Run `npm run build` after changing this
+   file or any view, and never edit the built file. Pages are styled with Tailwind
+   utilities in the markup. Only pieces repeated across pages are named here. */
+@import "tailwindcss" source(none);
+
+@source "../../app/Views";
+@source "../../app/Cells";
+@source "../../public/assets/js";
+
+/* Fonts are self-hosted, so the store makes no third-party requests. */
+@font-face {
+  font-family: "Bodoni Moda";
+  src: url("../fonts/bodoni-moda-latin.woff2") format("woff2");
+  font-weight: 400 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bodoni Moda";
+  src: url("../fonts/bodoni-moda-latin-italic.woff2") format("woff2");
+  font-weight: 400 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Jost";
+  src: url("../fonts/jost-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+/* Jost and Bodoni have no rupee sign, so this one glyph comes from Figtree. */
+@font-face {
+  font-family: "Figtree";
+  src: url("../fonts/figtree-latin-ext.woff2") format("woff2");
+  font-weight: 300 900;
+  font-display: swap;
+  unicode-range: U+20B9;
+}
+
+/* A restyle starts here. Wine is for actions and gold is a small accent. */
+@theme {
+  --font-sans: "Jost", "Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Bodoni Moda", "Figtree", Didot, "Bodoni MT", Georgia, serif;
+
+  --color-brand-50: #fcf3f5;
+  --color-brand-100: #f9e5ea;
+  --color-brand-200: #f2c8d2;
+  --color-brand-300: #e59cae;
+  --color-brand-400: #d06a84;
+  --color-brand-500: #b4435f;
+  --color-brand-600: #912c47;
+  --color-brand-700: #741c35;
+  --color-brand-800: #5b1226;
+  --color-brand-900: #470d1d;
+  --color-brand-950: #2a0711;
+
+  --color-gold-50: #fbf7ec;
+  --color-gold-100: #f5ecd2;
+  --color-gold-200: #ebd9a6;
+  --color-gold-300: #dfc277;
+  --color-gold-400: #d4b05d;
+  --color-gold-500: #c9a24b;
+  --color-gold-600: #ad8532;
+  --color-gold-700: #7a5a12;
+  --color-gold-800: #5f460f;
+
+  --color-cream: #fbf8f1;
+
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --animate-rise: rise 0.5s var(--ease-soft) backwards;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-white font-sans text-base/relaxed text-stone-900 antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-medium tracking-tight text-balance text-stone-950;
+  }
+  h1 {
+    @apply text-3xl sm:text-4xl;
+  }
+  h2 {
+    @apply text-2xl sm:text-3xl;
+  }
+  h3 {
+    @apply text-xl;
+  }
+  address {
+    font-style: normal;
+  }
+  button:not(:disabled),
+  summary,
+  label[for],
+  [role="button"] {
+    cursor: pointer;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-700;
+  }
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer components {
+  /* Layout */
+  .wrap {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .page {
+    @apply py-8 sm:py-12;
+  }
+  .section {
+    @apply py-12 sm:py-16;
+  }
+  .button-row {
+    @apply flex flex-wrap gap-3;
+  }
+
+  /* Text */
+  .eyebrow {
+    @apply mb-2 text-xs font-semibold tracking-[0.18em] text-gold-700 uppercase;
+  }
+  .lede {
+    @apply text-lg/relaxed text-stone-600;
+  }
+  .muted {
+    @apply text-stone-500;
+  }
+  .text-link {
+    @apply font-medium text-brand-800 underline decoration-brand-200 underline-offset-4 transition-colors hover:decoration-brand-800;
+  }
+  .link-button {
+    @apply text-sm font-medium text-stone-500 underline underline-offset-4 transition-colors hover:text-red-700;
+  }
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-lg focus:bg-stone-900 focus:px-4 focus:py-2 focus:text-white;
+  }
+  .brand-mark {
+    @apply block font-display text-2xl leading-none font-medium tracking-[0.2em];
+  }
+  .brand-by {
+    @apply mt-1 block text-[0.625rem] leading-none tracking-[0.18em] uppercase;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-800 px-5 py-2.5 text-center text-sm font-medium text-white shadow-xs transition-colors hover:bg-brand-900 disabled:cursor-wait disabled:opacity-60;
+  }
+  .btn-outline {
+    @apply bg-white text-stone-900 ring-1 ring-stone-300 ring-inset hover:bg-stone-50;
+  }
+  .btn-light {
+    @apply bg-white text-stone-900 hover:bg-stone-100;
+  }
+  .btn-outline-light {
+    @apply bg-transparent text-white shadow-none ring-1 ring-white/50 ring-inset hover:bg-white/10;
+  }
+  .btn-gold {
+    @apply bg-gold-500 text-stone-950 hover:bg-gold-400;
+  }
+  .btn-quiet {
+    @apply bg-stone-100 text-stone-900 shadow-none hover:bg-stone-200;
+  }
+  .btn-danger {
+    @apply bg-red-700 hover:bg-red-800;
+  }
+  .btn-danger-outline {
+    @apply bg-white text-red-700 ring-1 ring-red-200 ring-inset hover:bg-red-50;
+  }
+  .btn-large {
+    @apply px-6 py-3 text-base;
+  }
+  .btn-small {
+    @apply px-3 py-1.5;
+  }
+  .btn-block {
+    @apply w-full;
+  }
+
+  /* Forms. Text stays at 16px on phones, or iOS zooms in on every tap. */
+  .field {
+    @apply min-w-0;
+  }
+  .field > label,
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-stone-900;
+  }
+  .optional {
+    @apply font-normal text-stone-500;
+  }
+  .field input:not([type="checkbox"], [type="radio"], [type="file"]),
+  .field textarea,
+  .field select,
+  .input {
+    @apply block w-full rounded-lg border-0 bg-white px-3.5 py-2.5 text-base text-stone-900 shadow-xs ring-1 ring-stone-300 transition-shadow ring-inset placeholder:text-stone-400 focus:ring-2 focus:ring-brand-700 focus:outline-none sm:text-sm/6;
+  }
+  .field input[type="file"] {
+    @apply block w-full text-sm text-stone-600 file:mr-3 file:rounded-lg file:border-0 file:bg-stone-100 file:px-3 file:py-2 file:text-sm file:font-medium file:text-stone-900 hover:file:bg-stone-200;
+  }
+  .field-invalid input:not([type="checkbox"], [type="radio"], [type="file"]),
+  .field-invalid textarea,
+  .field-invalid select {
+    @apply ring-2 ring-red-600;
+  }
+  .field-error {
+    @apply mt-1.5 text-sm text-red-700;
+  }
+  .field-hint {
+    @apply mt-1.5 text-sm text-stone-500;
+  }
+  .form-grid {
+    @apply grid gap-5 sm:grid-cols-2;
+  }
+  .form-wide {
+    @apply sm:col-span-2;
+  }
+  .check {
+    @apply flex min-h-11 cursor-pointer items-center gap-2.5 text-sm;
+  }
+  .check input {
+    @apply size-4 shrink-0 rounded-sm accent-brand-800;
+  }
+
+  /* A radio or tick box shown as a pill. The input stays over it, just unseen, so
+     keyboards work as normal. */
+  .chip {
+    @apply relative cursor-pointer;
+  }
+  .chip input {
+    @apply absolute inset-0 size-full cursor-pointer opacity-0;
+  }
+  .chip-face {
+    @apply inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-lg px-3.5 text-sm font-medium text-stone-900 ring-1 ring-stone-300 transition-colors ring-inset;
+  }
+  .chip input:hover + .chip-face {
+    @apply ring-stone-900;
+  }
+  .chip input:checked + .chip-face {
+    @apply bg-brand-800 text-white ring-brand-800;
+  }
+  .chip input:focus-visible + .chip-face {
+    @apply outline-2 outline-offset-2 outline-brand-700;
+  }
+  .chip input:disabled {
+    @apply cursor-not-allowed;
+  }
+  .chip input:disabled + .chip-face {
+    @apply text-stone-400 line-through ring-stone-200;
+  }
+  .chip-swatch {
+    @apply size-4 shrink-0 rounded-full ring-1 ring-black/15;
+  }
+  /* The white ring keeps a dark swatch visible on the chip's wine background. */
+  .chip input:checked + .chip-face .chip-swatch {
+    @apply ring-2 ring-white;
+  }
+
+  /* app.js wraps password boxes in these to add the Show button. */
+  .password-wrap {
+    @apply relative block;
+  }
+  .field .password-wrap input {
+    @apply pr-16;
+  }
+  .password-toggle {
+    @apply absolute inset-y-0 right-0 px-3.5 text-sm font-medium text-brand-800;
+  }
+
+  /* Messages */
+  .flash {
+    @apply rounded-lg px-4 py-3 text-sm;
+  }
+  .flash a {
+    @apply ml-2 font-medium underline underline-offset-2;
+  }
+  .flash-ok {
+    @apply bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200 ring-inset;
+  }
+  .flash-warn {
+    @apply bg-amber-50 text-amber-900 ring-1 ring-amber-200 ring-inset;
+  }
+  .flash-danger {
+    @apply bg-red-50 text-red-800 ring-1 ring-red-200 ring-inset;
+  }
+  .empty {
+    @apply rounded-2xl border border-dashed border-stone-300 px-6 py-14 text-center;
+  }
+  .empty p {
+    @apply mx-auto mt-2 mb-5 max-w-md text-stone-500;
+  }
+
+  /* Cards, badges and tables */
+  .panel {
+    @apply rounded-xl border border-stone-200 bg-white shadow-xs;
+  }
+  .status {
+    @apply inline-flex w-fit items-center gap-1.5 rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-medium whitespace-nowrap text-stone-700;
+  }
+  .status::before {
+    @apply size-1.5 shrink-0 rounded-full bg-current;
+    content: "";
+  }
+  .status-pending {
+    @apply bg-amber-50 text-amber-800;
+  }
+  .status-confirmed,
+  .status-shipped {
+    @apply bg-blue-50 text-blue-800;
+  }
+  .status-delivered {
+    @apply bg-emerald-50 text-emerald-800;
+  }
+  .status-cancelled {
+    @apply bg-red-50 text-red-800;
+  }
+  .table-wrap {
+    @apply overflow-x-auto;
+  }
+  .table {
+    @apply w-full text-sm;
+  }
+  .table th {
+    @apply bg-stone-50 px-4 py-3 text-left text-xs font-medium whitespace-nowrap text-stone-500;
+  }
+  .table td {
+    @apply border-t border-stone-100 px-4 py-3 whitespace-nowrap;
+  }
+  .table .num {
+    @apply text-right tabular-nums;
+  }
+  .pager ul {
+    @apply mt-10 flex flex-wrap items-center justify-center gap-1;
+  }
+  .pager a {
+    @apply grid h-10 min-w-10 place-items-center rounded-lg px-3 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-100;
+  }
+  .pager a[aria-current="page"] {
+    @apply bg-brand-800 text-white;
+  }
+
+  /* The home page's opening block, shown when the film cannot play. */
+  .hero {
+    @apply bg-cream;
+  }
+
+  /* The wine section on the home page. */
+  .band {
+    @apply bg-brand-900 text-white;
+  }
+}
+
+/* Scroll film. Hidden unless <html> has .has-film, when it opens the home page
+   in place of the hero. Scrolling plays the frames forwards and back. */
+.film {
+  display: none;
+}
+.has-film {
+  /* Scroll anchoring made wheel clicks jump over the pinned stage in Edge. */
+  overflow-anchor: none;
+}
+.has-film .film {
+  display: block;
+}
+.has-film .hero {
+  display: none;
+}
+/* The pinned film needs the whole screen, so the header scrolls away on this page. */
+.has-film .site-header {
+  position: static;
+}
+/* This height sets the film's speed: the taller it is, the slower the film plays. */
+.film-scroll {
+  position: relative;
+  height: 820vh;
+}
+.film-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: #1b1510;
+}
+.film-stage img,
+.film-stage canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.film-bar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  height: 2px;
+  overflow: hidden;
+  background: rgb(239 229 211 / 18%);
+}
+.film-bar i {
+  position: absolute;
+  inset: 0;
+  background: var(--color-gold-500);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.film-hint {
+  position: absolute;
+  bottom: max(3vh, 0.75rem);
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  color: #fff9ee;
+  font-size: 0.68rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  transition: opacity 0.5s;
+}
+.film-hint-line {
+  width: 1px;
+  height: 38px;
+  background: linear-gradient(var(--color-gold-500), transparent);
+  animation: film-drip 2.2s ease-in-out infinite;
+}
+@keyframes film-drip {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+.film-loading {
+  position: absolute;
+  top: 1.125rem;
+  right: 1.125rem;
+  z-index: 2;
+  color: #fff9ee;
+  font-size: 0.66rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  transition: opacity 0.6s;
+}
+/* Portrait screens crop the landscape film to fill the height. --film-zoom opens it
+   wide enough for the baked-in wordmark, over a blur of the first frame. */
+@media (max-aspect-ratio: 4/5) {
+  .film-scroll {
+    height: 620svh;
+  }
+  .film-stage img {
+    filter: blur(28px) brightness(0.8);
+    transform: scale(1.15);
+  }
+  .film-stage canvas {
+    --film-edge: calc((1 - var(--film-zoom, 1)) * 40%);
+    inset: 50% auto auto 50%;
+    width: auto;
+    transform: translate(-50%, -50%) scale(var(--film-zoom, 1));
+    -webkit-mask-image: linear-gradient(transparent, #000 var(--film-edge), #000 calc(100% - var(--film-edge)), transparent);
+    mask-image: linear-gradient(transparent, #000 var(--film-edge), #000 calc(100% - var(--film-edge)), transparent);
+  }
+}
+
+/* Website assistant. Full width on phones. The script builds the messages, so they
+   are named here. */
+.chat-launcher {
+  @apply fixed right-4 bottom-4 z-40 grid size-14 place-items-center rounded-full bg-brand-800 text-white shadow-lg transition-colors hover:bg-brand-900;
+}
+.chat {
+  @apply fixed right-4 bottom-4 z-40 flex w-[23rem] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-stone-200;
+  height: min(35rem, calc(100dvh - 2rem));
+}
+.chat:focus {
+  outline: none;
+}
+.chat-head {
+  @apply flex items-center justify-between gap-3 bg-brand-900 px-4 py-3 text-white;
+}
+.chat-head p {
+  @apply grid;
+}
+.chat-head strong {
+  @apply font-display text-lg leading-tight font-medium tracking-[0.14em];
+}
+.chat-head span {
+  @apply text-xs text-brand-200;
+}
+.chat-close {
+  @apply grid size-9 place-items-center rounded-lg transition-colors hover:bg-white/10;
+}
+.chat-log {
+  @apply flex flex-1 flex-col gap-2 overflow-y-auto bg-stone-50 p-4;
+}
+.chat-bubble {
+  @apply max-w-[85%] rounded-2xl px-3.5 py-2 text-sm whitespace-pre-line;
+}
+.chat-assistant {
+  @apply self-start rounded-bl-md bg-white text-stone-800 shadow-xs ring-1 ring-stone-200;
+}
+.chat-customer {
+  @apply self-end rounded-br-md bg-brand-800 text-white;
+}
+.chat-typing {
+  @apply min-h-9 min-w-14 animate-pulse;
+}
+.chat-link {
+  @apply self-start rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-brand-800 shadow-xs ring-1 ring-stone-200 hover:bg-stone-50;
+}
+.chat-options {
+  @apply flex flex-wrap gap-2;
+}
+.chat-options button {
+  @apply rounded-full bg-white px-3 py-1.5 text-sm font-medium text-stone-800 ring-1 ring-stone-300 transition-colors hover:bg-stone-100;
+}
+.chat-form {
+  @apply flex gap-2 border-t border-stone-200 bg-white p-3;
+}
+.chat-form input {
+  @apply min-w-0 flex-1 rounded-lg border-0 bg-stone-100 px-3 py-2 text-base text-stone-900 focus:ring-2 focus:ring-brand-700 focus:outline-none sm:text-sm;
+}
+.chat-form button {
+  @apply rounded-lg bg-brand-800 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-900 disabled:opacity-60;
+}
+@media (max-width: 30rem) {
+  .chat {
+    @apply inset-x-0 bottom-0 w-full rounded-t-2xl rounded-b-none;
+    height: min(38rem, 100dvh);
+  }
+}
+
+/* Product photos swipe on their own, with links underneath. */
+.gallery-track {
+  display: flex;
+  overflow: auto hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.gallery-track::-webkit-scrollbar {
+  display: none;
+}
+.gallery-track img {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Scroll motion. Add data-reveal to an element to bring it in as it scrolls into
+   view: alone it rises, and "unroll" opens top to bottom. app.js only sets
+   .is-waiting on things below the fold, so with no JavaScript everything is visible. */
+.is-waiting {
+  opacity: 0;
+  transform: translateY(1.25rem);
+}
+/* The clip goes on the children: IntersectionObserver treats a fully clipped
+   element as having no visible area, so it would never be revealed. */
+.is-waiting[data-reveal="unroll"] {
+  opacity: 1;
+  transform: none;
+}
+.is-waiting[data-reveal="unroll"] > * {
+  clip-path: inset(0 0 100% 0);
+}
+.is-revealing {
+  transition:
+    opacity 0.7s ease-out var(--reveal-delay, 0ms),
+    transform 0.7s var(--ease-soft) var(--reveal-delay, 0ms);
+}
+.is-revealing[data-reveal="unroll"] > * {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.9s var(--ease-soft) var(--reveal-delay, 0ms);
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+@media print {
+  .is-waiting,
+  .is-waiting > * {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+}
+
+/* Follows the visitor's "reduce motion" setting unless store.motion is always. */
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="always"]) *,
+  html:not([data-motion="always"]) *::before,
+  html:not([data-motion="always"]) *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Admin */
+/* Booking and enquiry statuses. The class is built from the stored value in PHP,
+   so no utility can reach it. */
+.status-contacted {
+  @apply bg-blue-50 text-blue-800;
+}
+.status-completed,
+.status-closed {
+  @apply bg-emerald-50 text-emerald-800;
+}
